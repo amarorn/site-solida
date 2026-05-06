@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #020917;
+  --foreground: #f1f5f9;
+  --muted: #94a3b8;
+  --surface: #0c1527;
+  --surface-elevated: #162035;
+  --accent: #f59e0b;
+  --accent-muted: #d97706;
+  --border: rgba(148, 163, 184, 0.1);
+  --grid-line: rgba(148, 163, 184, 0.05);
+  /* cursor glow position (updated via JS) */
+  --cursor-x: -600px;
+  --cursor-y: -600px;
+}
+
+body {
+  color: var(--foreground);
+  background-color: var(--background);
+}
+
+/* ── Focus ring — ONLY on keyboard focus ─────────────────── */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Correct: ring only appears on :focus-visible, never always-on */
+  .focus-ring {
+    outline: none;
+  }
+  .focus-ring:focus-visible {
+    outline: 2px solid transparent;
+    box-shadow:
+      0 0 0 2px #020917,
+      0 0 0 4px rgba(251, 191, 36, 0.75);
+  }
+}
+
+/* ── Scroll reveal ─────────────────────────────────────────── */
+[data-animate] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+[data-animate][data-visible='true'] {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── Hero load animations ─────────────────────────────────── */
+@keyframes hero-in {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: none; }
+}
+.animate-hero {
+  opacity: 0;
+  animation: hero-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ── Floating orb animations ─────────────────────────────── */
+@keyframes float-slow {
+  0%, 100% { transform: translate(0px, 0px) scale(1); }
+  33%       { transform: translate(40px, -30px) scale(1.06); }
+  66%       { transform: translate(-25px, 20px) scale(0.94); }
+}
+@keyframes float-med {
+  0%, 100% { transform: translate(0px, 0px) scale(1); }
+  40%       { transform: translate(-35px, 25px) scale(1.08); }
+  70%       { transform: translate(20px, -15px) scale(0.92); }
+}
+@keyframes float-fast {
+  0%, 100% { transform: translate(0px, 0px); }
+  50%       { transform: translate(15px, -25px); }
+}
+
+.orb-1 { animation: float-slow 22s ease-in-out infinite; }
+.orb-2 { animation: float-med  28s ease-in-out infinite; animation-delay: -10s; }
+.orb-3 { animation: float-fast 16s ease-in-out infinite; animation-delay: -6s; }
+.orb-4 { animation: float-slow 32s ease-in-out infinite reverse; animation-delay: -18s; }
+
+/* ── Grid pulse ───────────────────────────────────────────── */
+@keyframes grid-pulse {
+  0%, 100% { opacity: 0.35; }
+  50%       { opacity: 0.6; }
+}
+.animate-grid { animation: grid-pulse 8s ease-in-out infinite; }
+
+/* ── Client marquee ───────────────────────────────────────── */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 36s linear infinite;
+  will-change: transform;
+}
