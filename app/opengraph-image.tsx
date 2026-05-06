@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const runtime = "edge";
+export const dynamic = "force-static";
 export const alt =
   "Sólida Energías Renovables — 220 GW de experiência em energias renováveis";
 export const size = { width: 1200, height: 630 };
@@ -8,7 +8,7 @@ export const contentType = "image/png";
 
 const metrics = [
   { value: "2.500+", label: "Projetos" },
-  { value: "50+", label: "Países" },
+  { value: "BR", label: "Atuação" },
   { value: "300+", label: "Profissionais" },
   { value: "18 anos", label: "100% renováveis" },
 ];
@@ -64,7 +64,7 @@ export default async function Image() {
           }}
         />
 
-        {/* Top row: logo + Bureau Veritas */}
+        {/* Top row: logo */}
         <div
           style={{
             display: "flex",
@@ -94,33 +94,6 @@ export default async function Image() {
             >
               Energías Renovables
             </span>
-          </div>
-
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 8,
-              borderRadius: 100,
-              border: "1px solid rgba(245,158,11,0.22)",
-              background: "rgba(245,158,11,0.08)",
-              padding: "7px 16px",
-              fontSize: 11,
-              fontWeight: 600,
-              color: "rgba(251,191,36,0.85)",
-              letterSpacing: "0.12em",
-              textTransform: "uppercase",
-            }}
-          >
-            <div
-              style={{
-                width: 6,
-                height: 6,
-                borderRadius: "50%",
-                background: "#f59e0b",
-              }}
-            />
-            Grupo Bureau Veritas · 140 países
           </div>
         </div>
 
