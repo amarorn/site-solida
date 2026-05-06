@@ -2,7 +2,6 @@ import { Hero } from "@/components/hero";
 import { SectionAbout } from "@/components/section-about";
 import { SectionClients } from "@/components/section-clients";
 import { SectionCta } from "@/components/section-cta";
-import { SectionInnovation } from "@/components/section-innovation";
 import { SectionServices } from "@/components/section-services";
 import { SectionStats } from "@/components/section-stats";
 import { SectionTech } from "@/components/section-tech";
@@ -20,7 +19,6 @@ export default function Home() {
         <SectionServices />
         <SectionTech />
         <SectionClients />
-        <SectionInnovation />
         <SectionCta />
       </main>
       <SiteFooter />

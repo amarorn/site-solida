@@ -1,9 +1,12 @@
+import Link from "next/link";
+
 import { AnimateIn } from "@/components/animate-in";
 import { TiltCard } from "@/components/tilt-card";
 
 const services = [
   {
     id: "engenharia",
+    href: "/engenharia",
     number: "01",
     title: "Engenharia",
     subtitle: "Ciclo completo do projeto",
@@ -22,6 +25,7 @@ const services = [
   },
   {
     id: "consultoria",
+    href: "/consultoria",
     number: "02",
     title: "Consultoria",
     subtitle: "Assessoria técnica independente",
@@ -40,6 +44,7 @@ const services = [
   },
   {
     id: "construcao",
+    href: "/gestao-da-construcao",
     number: "03",
     title: "Gestão de Construção",
     subtitle: "EPCM · Supervisão · Zero Acidentes",
@@ -58,6 +63,7 @@ const services = [
   },
   {
     id: "inovacao",
+    href: "/inovacao",
     number: "04",
     title: "Inovação",
     subtitle: "P&D proprietário · Ferramentas exclusivas",
@@ -168,11 +174,13 @@ export function SectionServices() {
                   </span>
                 </div>
 
-                <h3
-                  id={`service-${s.id}`}
-                  className="font-display text-xl font-bold text-foreground"
-                >
-                  {s.title}
+                <h3 id={`service-${s.id}`} className="font-display text-xl font-bold">
+                  <Link
+                    href={s.href}
+                    className="text-foreground underline-offset-4 hover:underline focus-ring rounded-sm"
+                  >
+                    {s.title}
+                  </Link>
                 </h3>
                 <p className="mt-0.5 text-xs font-semibold uppercase tracking-wide text-slate-500">
                   {s.subtitle}
@@ -192,6 +200,16 @@ export function SectionServices() {
                     </li>
                   ))}
                 </ul>
+
+                <div className="mt-5">
+                  <Link
+                    href={s.href}
+                    className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-amber-300/90 hover:text-amber-200 focus-ring rounded-sm"
+                  >
+                    Ver detalhes
+                    <span aria-hidden>→</span>
+                  </Link>
+                </div>
                 </article>
                 </TiltCard>
               </AnimateIn>

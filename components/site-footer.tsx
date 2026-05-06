@@ -5,7 +5,11 @@ const navLinks = [
   { href: "#servicos", label: "Serviços" },
   { href: "#tecnologias", label: "Tecnologias" },
   { href: "#clientes", label: "Clientes" },
-  { href: "#inovacao", label: "Inovação" },
+  { href: "/engenharia", label: "Engenharia" },
+  { href: "/consultoria", label: "Consultoria" },
+  { href: "/gestao-da-construcao", label: "Gestão da construção" },
+  { href: "/inovacao", label: "Inovação" },
+  { href: "/projetos", label: "Projetos" },
   { href: "#contato", label: "Contato" },
 ];
 
@@ -99,12 +103,21 @@ export function SiteFooter() {
             <ul className="space-y-2">
               {navLinks.map((item) => (
                 <li key={item.href}>
-                  <a
-                    href={item.href}
-                    className="text-sm text-muted transition hover:text-foreground focus-visible:rounded-sm focus-ring"
-                  >
-                    {item.label}
-                  </a>
+                  {item.href.startsWith("/") ? (
+                    <Link
+                      href={item.href}
+                      className="text-sm text-muted transition hover:text-foreground focus-visible:rounded-sm focus-ring"
+                    >
+                      {item.label}
+                    </Link>
+                  ) : (
+                    <a
+                      href={item.href}
+                      className="text-sm text-muted transition hover:text-foreground focus-visible:rounded-sm focus-ring"
+                    >
+                      {item.label}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>

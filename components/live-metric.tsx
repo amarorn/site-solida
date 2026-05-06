@@ -48,9 +48,12 @@ export function LiveMetric({
 
   useEffect(() => {
     if (reducedMotion()) {
-      setPhase("done");
-      setTyped(typingText);
-      setValue(to);
+      // evita setState síncrono dentro do effect (regra do lint)
+      requestAnimationFrame(() => {
+        setPhase("done");
+        setTyped(typingText);
+        setValue(to);
+      });
       return;
     }
 

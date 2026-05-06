@@ -5,7 +5,6 @@ import { ScrambleText } from "@/components/scramble-text";
 
 const quickMetrics = [
   { to: 2500, suffix: "+", decimals: 0, label: "Projetos concluídos" },
-  { to: 50,   suffix: "+", decimals: 0, label: "Países de atuação" },
   { to: 300,  suffix: "+", decimals: 0, label: "Profissionais" },
   { to: 18,   suffix: " anos", decimals: 0, label: "Exclusividade em renováveis" },
 ];
@@ -20,8 +19,8 @@ const differentiators = [
     desc: "Não vendemos equipamentos. Só engenharia.",
   },
   {
-    title: "2.500+ projetos em 50 países",
-    desc: "Solar, eólica, BESS, CSP, biomassa",
+    title: "Atuação no Brasil",
+    desc: "Entrega local com rigor técnico e governança",
   },
   {
     title: "P&D com ferramentas exclusivas",

@@ -43,7 +43,8 @@ export function CountUp({
       (window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false);
     if (reduce) {
       started.current = true;
-      setCurrent(to);
+      // evita setState síncrono dentro do effect (regra do lint)
+      requestAnimationFrame(() => setCurrent(to));
       return;
     }
 

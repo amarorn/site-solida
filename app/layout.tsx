@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { IBM_Plex_Sans, Outfit, Barlow_Condensed } from "next/font/google";
 import { CursorGlow } from "@/components/cursor-glow";
 import { ScrollProgress } from "@/components/scroll-progress";
+import { PageTransition } from "@/components/page-transition";
 import "./globals.css";
 
 const siteUrl =
@@ -49,7 +50,7 @@ export const metadata: Metadata = {
     template: "%s | Sólida",
   },
   description:
-    "18 anos de engenharia 100% dedicada a energias renováveis. 220 GW de experiência acumulada em solar, eólica, armazenamento e termossolar em 50+ países.",
+    "18 anos de engenharia 100% dedicada a energias renováveis. 220 GW de experiência acumulada em solar, eólica, armazenamento e termossolar.",
   openGraph: {
     locale: "pt_BR",
     type: "website",
@@ -65,13 +66,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" className="scroll-smooth">
+    <html lang="pt-BR" className="scroll-smooth" data-scroll-behavior="smooth">
       <body
         className={`${plexSans.variable} ${outfit.variable} ${barlowCondensed.variable} font-sans antialiased`}
       >
         <ScrollProgress />
         <CursorGlow />
-        {children}
+        <PageTransition>{children}</PageTransition>
       </body>
     </html>
   );

@@ -24,10 +24,7 @@ export function ScrambleText({ text, className, as = "span", once = true }: Prop
   const hostRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
-    if (prefersReducedMotion()) {
-      setOut(text);
-      return;
-    }
+    if (prefersReducedMotion()) return;
 
     const el = hostRef.current;
     if (!el) return;

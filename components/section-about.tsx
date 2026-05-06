@@ -53,7 +53,7 @@ export function SectionAbout() {
                 <strong className="font-semibold text-slate-200">
                   Enrique Romero
                 </strong>
-                , a Sólida Energías Renovables construiu um dos portfólios técnicos mais extensos do setor — 220 GW em projetos concluídos, presença em 50+ países e uma equipe de 300+ profissionais de 18 nacionalidades.
+                , a Sólida Energías Renovables construiu um dos portfólios técnicos mais extensos do setor — 220 GW em projetos concluídos e uma equipe de 300+ profissionais.
               </p>
 
               <p className="leading-relaxed text-muted">
