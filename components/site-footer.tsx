@@ -1,28 +1,31 @@
 import Link from "next/link";
 
-const navLinks = [
-  { href: "#sobre", label: "Sobre" },
-  { href: "#servicos", label: "Serviços" },
-  { href: "#tecnologias", label: "Tecnologias" },
-  { href: "#clientes", label: "Clientes" },
-  { href: "/engenharia", label: "Engenharia" },
-  { href: "/consultoria", label: "Consultoria" },
-  { href: "/gestao-da-construcao", label: "Gestão da construção" },
-  { href: "/inovacao", label: "Inovação" },
-  { href: "/projetos", label: "Projetos" },
-  { href: "#contato", label: "Contato" },
+const pageLinks = [
+  { href: "#sobre",       label: "Sobre a empresa" },
+  { href: "#servicos",    label: "Serviços" },
+  { href: "#tecnologias", label: "Tecnologia" },
+  { href: "#clientes",    label: "Clientes" },
+  { href: "#contato",     label: "Contato" },
+];
+
+const serviceLinks = [
+  { href: "/engenharia",           label: "Engenharia" },
+  { href: "/consultoria",          label: "Consultoria" },
+  { href: "/gestao-da-construcao", label: "Gestão de Construção" },
+  { href: "/inovacao",             label: "Inovação" },
+  { href: "/projetos",             label: "Projetos" },
 ];
 
 const partners = [
   { src: "/partners/tuv-rheinland-testmark.svg", alt: "TÜV Rheinland" },
-  { src: "/partners/solare-italia-white.svg", alt: "Solare Italia" },
-  { src: "/partners/spain-dc-white.svg", alt: "Spain DC" },
-  { src: "/partners/aee-white.svg", alt: "AEE" },
-  { src: "/partners/logo-aias-bianco.svg", alt: "AIAS" },
-  { src: "/partners/aepibal-white.svg", alt: "Aepibal" },
-  { src: "/partners/camera-logo.svg", alt: "Camera di Commercio" },
-  { src: "/partners/avaesen-logo-1.svg", alt: "Avaesen" },
-  { src: "/partners/logo-apren-blanco.svg", alt: "APREN" },
+  { src: "/partners/solare-italia-white.svg",    alt: "Solare Italia" },
+  { src: "/partners/spain-dc-white.svg",         alt: "Spain DC" },
+  { src: "/partners/aee-white.svg",              alt: "AEE" },
+  { src: "/partners/logo-aias-bianco.svg",       alt: "AIAS" },
+  { src: "/partners/aepibal-white.svg",          alt: "Aepibal" },
+  { src: "/partners/camera-logo.svg",            alt: "Camera di Commercio" },
+  { src: "/partners/avaesen-logo-1.svg",         alt: "Avaesen" },
+  { src: "/partners/logo-apren-blanco.svg",      alt: "APREN" },
 ];
 
 const socials = [
@@ -55,17 +58,48 @@ const socials = [
   },
 ];
 
+function NavCol({ title, links }: { title: string; links: { href: string; label: string }[] }) {
+  return (
+    <div>
+      <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500">
+        {title}
+      </p>
+      <ul className="space-y-2.5">
+        {links.map((item) => (
+          <li key={item.href}>
+            {item.href.startsWith("/") ? (
+              <Link
+                href={item.href}
+                className="text-sm text-muted transition hover:text-foreground focus-ring"
+              >
+                {item.label}
+              </Link>
+            ) : (
+              <a
+                href={item.href}
+                className="text-sm text-muted transition hover:text-foreground focus-ring"
+              >
+                {item.label}
+              </a>
+            )}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 export function SiteFooter() {
   return (
     <footer className="border-t border-border bg-slate-950" role="contentinfo">
 
       {/* ── Main grid ─────────────────────────────────────────── */}
       <div className="mx-auto max-w-6xl px-4 pt-14 pb-10 sm:px-6 lg:px-8">
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+        <div className="grid grid-cols-2 gap-10 lg:grid-cols-[1.6fr_1fr_1fr_1.2fr] lg:gap-12">
 
           {/* 1 — Brand */}
-          <div className="space-y-5 lg:col-span-1">
-            <Link href="/" className="inline-flex flex-col focus-visible:rounded-sm focus-ring">
+          <div className="col-span-2 space-y-5 lg:col-span-1">
+            <Link href="/" className="inline-flex flex-col focus-ring">
               <span className="font-display text-xl font-extrabold tracking-tight text-foreground">
                 Sólida
               </span>
@@ -74,7 +108,7 @@ export function SiteFooter() {
               </span>
             </Link>
 
-            <p className="text-sm leading-relaxed text-muted">
+            <p className="max-w-xs text-sm leading-relaxed text-muted">
               18 anos de engenharia 100% dedicada a energias renováveis — independência técnica e inovação proprietária.
             </p>
 
@@ -93,37 +127,25 @@ export function SiteFooter() {
                 </a>
               ))}
             </div>
+
+            <div className="inline-flex items-center gap-2 rounded-lg border border-amber-500/15 bg-amber-500/5 px-3 py-2">
+              <span className="h-1.5 w-1.5 rounded-full bg-amber-500" aria-hidden />
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-amber-400/80">
+                  Grupo Bureau Veritas
+                </p>
+                <p className="text-[10px] text-slate-600">140 países · desde out. 2025</p>
+              </div>
+            </div>
           </div>
 
-          {/* 2 — Navegação */}
-          <div>
-            <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500">
-              Navegação
-            </p>
-            <ul className="space-y-2">
-              {navLinks.map((item) => (
-                <li key={item.href}>
-                  {item.href.startsWith("/") ? (
-                    <Link
-                      href={item.href}
-                      className="text-sm text-muted transition hover:text-foreground focus-visible:rounded-sm focus-ring"
-                    >
-                      {item.label}
-                    </Link>
-                  ) : (
-                    <a
-                      href={item.href}
-                      className="text-sm text-muted transition hover:text-foreground focus-visible:rounded-sm focus-ring"
-                    >
-                      {item.label}
-                    </a>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </div>
+          {/* 2 — Empresa */}
+          <NavCol title="Empresa" links={pageLinks} />
 
-          {/* 3 — Contato */}
+          {/* 3 — Serviços */}
+          <NavCol title="Serviços" links={serviceLinks} />
+
+          {/* 4 — Contacto */}
           <div className="space-y-6">
             <div>
               <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500">
@@ -131,18 +153,12 @@ export function SiteFooter() {
               </p>
               <ul className="space-y-2 text-sm">
                 <li>
-                  <a
-                    href="mailto:comercial@solida.com.es"
-                    className="text-amber-400/90 transition hover:text-amber-400 focus-visible:rounded-sm focus-ring"
-                  >
+                  <a href="mailto:comercial@solida.com.es" className="text-amber-400/90 transition hover:text-amber-400 focus-ring">
                     comercial@solida.com.es
                   </a>
                 </li>
                 <li>
-                  <a
-                    href="tel:+34914855316"
-                    className="text-slate-400 transition hover:text-slate-300 focus-visible:rounded-sm focus-ring"
-                  >
+                  <a href="tel:+34914855316" className="text-slate-400 transition hover:text-slate-300 focus-ring">
                     (+34) 91 485 53 16
                   </a>
                 </li>
@@ -153,19 +169,24 @@ export function SiteFooter() {
               <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500">
                 Brasil
               </p>
-              <ul className="space-y-2 text-sm">
+              <ul className="space-y-1.5 text-sm">
                 <li>
-                  <a
-                    href="mailto:contato@solida.com.br"
-                    className="text-amber-400/90 transition hover:text-amber-400 focus-visible:rounded-sm focus-ring"
-                  >
+                  <a href="mailto:contato@solida.com.br" className="text-amber-400/90 transition hover:text-amber-400 focus-ring">
                     contato@solida.com.br
                   </a>
                 </li>
-                <li className="text-xs text-slate-600">
-                  Referência São Paulo
-                </li>
+                <li className="text-xs text-slate-600">Referência São Paulo</li>
               </ul>
+            </div>
+
+            <div>
+              <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500">
+                Sede
+              </p>
+              <p className="text-xs leading-relaxed text-slate-600">
+                Madrid, Espanha<br />
+                Santiago · Roma · México · São Paulo
+              </p>
             </div>
           </div>
         </div>
@@ -185,7 +206,7 @@ export function SiteFooter() {
                   alt={p.alt}
                   loading="lazy"
                   decoding="async"
-                  className="h-7 w-auto max-w-[96px] object-contain opacity-40 transition hover:opacity-70"
+                  className="h-7 w-auto max-w-[96px] object-contain opacity-35 transition hover:opacity-65"
                 />
               </div>
             ))}
@@ -195,8 +216,9 @@ export function SiteFooter() {
 
       {/* ── Bottom bar ────────────────────────────────────────── */}
       <div className="border-t border-border/40">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-center gap-2 px-4 py-4 text-center text-xs text-slate-700 sm:px-6 lg:px-8">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-4 py-4 text-xs text-slate-700 sm:flex-row sm:px-6 lg:px-8">
           <p>© {new Date().getFullYear()} Sólida Energías Renovables · Todos os direitos reservados.</p>
+          <p className="text-slate-700">Madrid · Santiago · Roma · México · São Paulo · Lisboa</p>
         </div>
       </div>
     </footer>
