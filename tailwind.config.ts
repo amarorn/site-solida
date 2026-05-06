@@ -39,6 +39,8 @@ export default {
         glow: "0 0 80px -20px rgba(245, 158, 11, 0.2)",
         "glow-lg": "0 0 140px -30px rgba(245, 158, 11, 0.28)",
         "amber-sm": "0 4px 28px -6px rgba(245, 158, 11, 0.35)",
+        "card-hover":
+          "0 20px 40px -12px rgba(0,0,0,0.55), 0 0 30px -10px rgba(245,158,11,0.12)",
       },
     },
   },

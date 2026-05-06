@@ -1,14 +1,38 @@
+"use client";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 const nav = [
-  { href: "#sobre", label: "Sobre" },
-  { href: "#servicos", label: "Serviços" },
-  { href: "#tecnologias", label: "Tecnologias" },
-  { href: "#clientes", label: "Clientes" },
-  { href: "#inovacao", label: "Inovação" },
+  { href: "#sobre",       label: "Sobre",       id: "sobre" },
+  { href: "#servicos",    label: "Serviços",    id: "servicos" },
+  { href: "#tecnologias", label: "Tecnologias", id: "tecnologias" },
+  { href: "#clientes",    label: "Clientes",    id: "clientes" },
+  { href: "#inovacao",    label: "Inovação",    id: "inovacao" },
 ];
 
+const SECTION_IDS = nav.map((n) => n.id);
+
 export function SiteHeader() {
+  const [active, setActive] = useState("");
+
+  useEffect(() => {
+    const OFFSET = 80; // header height + buffer
+
+    const update = () => {
+      const scrollY = window.scrollY + OFFSET;
+      let current = "";
+      for (const id of SECTION_IDS) {
+        const el = document.getElementById(id);
+        if (el && el.offsetTop <= scrollY) current = id;
+      }
+      setActive(current);
+    };
+
+    window.addEventListener("scroll", update, { passive: true });
+    update(); // initial check
+    return () => window.removeEventListener("scroll", update);
+  }, []);
+
   return (
     <header className="sticky top-0 z-50 border-b border-border/60 bg-slate-950/90 backdrop-blur-md">
       <a
@@ -33,25 +57,31 @@ export function SiteHeader() {
           </span>
         </Link>
 
-        {/* Desktop nav — clean text links, zero borders */}
-        <nav
-          className="hidden items-center gap-7 lg:flex"
-          aria-label="Principal"
-        >
-          {nav.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              className="relative text-xs font-semibold uppercase tracking-wider text-slate-400 transition-colors after:absolute after:-bottom-1 after:left-0 after:h-px after:w-0 after:bg-amber-400 after:transition-all hover:text-slate-100 hover:after:w-full focus-ring rounded-sm"
-            >
-              {item.label}
-            </a>
-          ))}
+        {/* Desktop nav */}
+        <nav className="hidden items-center gap-7 lg:flex" aria-label="Principal">
+          {nav.map((item) => {
+            const isActive = active === item.id;
+            return (
+              <a
+                key={item.href}
+                href={item.href}
+                className={[
+                  "relative text-xs font-semibold uppercase tracking-wider transition-colors focus-ring rounded-sm",
+                  "after:absolute after:-bottom-1 after:left-0 after:h-px after:transition-all after:duration-300",
+                  isActive
+                    ? "text-amber-400 after:w-full after:bg-amber-400"
+                    : "text-slate-400 after:w-0 after:bg-amber-400 hover:text-slate-100 hover:after:w-full",
+                ].join(" ")}
+                aria-current={isActive ? "page" : undefined}
+              >
+                {item.label}
+              </a>
+            );
+          })}
         </nav>
 
         {/* CTA + mobile menu */}
         <div className="flex items-center gap-3">
-          {/* Premium CTA button — solid, no boxy border */}
           <a
             href="#contato"
             className="hidden items-center gap-2 rounded-full bg-amber-500 px-5 py-2 text-xs font-bold uppercase tracking-wider text-slate-950 shadow-amber-sm transition hover:bg-amber-400 hover:shadow-glow focus-ring lg:inline-flex"
@@ -64,9 +94,9 @@ export function SiteHeader() {
           <details className="group relative lg:hidden">
             <summary className="flex cursor-pointer list-none items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium text-slate-300 transition hover:text-foreground marker:hidden [&::-webkit-details-marker]:hidden focus-ring">
               <span className="flex h-4 w-5 flex-col justify-between">
-                <span className="h-px w-full bg-current transition-transform" />
+                <span className="h-px w-full bg-current" />
                 <span className="h-px w-4 self-end bg-current" />
-                <span className="h-px w-full bg-current transition-transform" />
+                <span className="h-px w-full bg-current" />
               </span>
             </summary>
             <nav
@@ -78,7 +108,12 @@ export function SiteHeader() {
                   <a
                     key={item.href}
                     href={item.href}
-                    className="block rounded-lg px-4 py-2.5 text-sm font-medium text-muted transition hover:bg-surface-elevated hover:text-foreground focus-ring"
+                    className={[
+                      "block rounded-lg px-4 py-2.5 text-sm font-medium transition focus-ring",
+                      active === item.id
+                        ? "bg-amber-500/10 text-amber-400"
+                        : "text-muted hover:bg-surface-elevated hover:text-foreground",
+                    ].join(" ")}
                   >
                     {item.label}
                   </a>
@@ -95,7 +130,6 @@ export function SiteHeader() {
             </nav>
           </details>
         </div>
-
       </div>
     </header>
   );

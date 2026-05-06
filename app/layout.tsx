@@ -1,7 +1,21 @@
 import type { Metadata, Viewport } from "next";
 import { IBM_Plex_Sans, Outfit, Barlow_Condensed } from "next/font/google";
 import { CursorGlow } from "@/components/cursor-glow";
+import { ScrollProgress } from "@/components/scroll-progress";
 import "./globals.css";
+
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  process.env.SITE_URL ??
+  "http://localhost:3000";
+
+const metadataBase = (() => {
+  try {
+    return new URL(siteUrl);
+  } catch {
+    return new URL("http://localhost:3000");
+  }
+})();
 
 const plexSans = IBM_Plex_Sans({
   variable: "--font-sans",
@@ -29,6 +43,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
+  metadataBase,
   title: {
     default: "Sólida Energías Renovables | Engenharia em Energia Renovável",
     template: "%s | Sólida",
@@ -54,6 +69,7 @@ export default function RootLayout({
       <body
         className={`${plexSans.variable} ${outfit.variable} ${barlowCondensed.variable} font-sans antialiased`}
       >
+        <ScrollProgress />
         <CursorGlow />
         {children}
       </body>

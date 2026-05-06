@@ -1,4 +1,5 @@
 import { AnimateIn } from "@/components/animate-in";
+import { TiltCard } from "@/components/tilt-card";
 
 const services = [
   {
@@ -101,14 +102,60 @@ export function SectionServices() {
           </div>
         </AnimateIn>
 
-        <div className="grid gap-5 sm:grid-cols-2">
-          {services.map((s, i) => (
-            <AnimateIn key={s.id} delay={i * 75}>
-              <article
-                className="group flex h-full flex-col rounded-2xl border border-border bg-surface/70 p-7 transition hover:border-amber-500/20 hover:bg-surface"
-                aria-labelledby={`service-${s.id}`}
+        <div className="grid grid-flow-dense gap-5 md:grid-cols-6 md:items-start lg:grid-cols-12">
+          {services.map((s, i) => {
+            const isFeature = i === 0;
+            const wrapperCls = [
+              "min-h-0",
+              isFeature ? "md:col-span-4 md:row-span-2 md:h-full lg:col-span-7" : "",
+              i === 1 ? "md:col-span-2 lg:col-span-5" : "",
+              i === 2 ? "md:col-span-3 lg:col-span-6" : "",
+              i === 3 ? "md:col-span-3 lg:col-span-6" : "",
+            ]
+              .filter(Boolean)
+              .join(" ");
+
+            return (
+              <AnimateIn
+                key={s.id}
+                delay={i * 75}
+                className={wrapperCls}
               >
-                <div className="mb-5 flex items-start justify-between gap-2">
+                <TiltCard
+                  fillHeight={isFeature}
+                  className={[
+                    "group relative flex min-h-0 flex-col overflow-hidden rounded-2xl border border-border bg-surface/70 p-7",
+                    "transition-[border-color,box-shadow,background-color] duration-300 hover:border-amber-500/30 hover:bg-surface hover:shadow-card-hover",
+                    isFeature ? "md:min-h-[26rem] md:h-full" : "",
+                  ]
+                    .filter(Boolean)
+                    .join(" ")}
+                >
+                <div
+                  className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full blur-2xl"
+                  style={{
+                    background:
+                      "radial-gradient(circle, rgba(245,158,11,0.18) 0%, transparent 65%)",
+                  }}
+                  aria-hidden
+                />
+                <div
+                  className="pointer-events-none absolute -left-16 bottom-0 h-56 w-56 rounded-full blur-3xl opacity-60"
+                  style={{
+                    background:
+                      "radial-gradient(circle, rgba(56,189,248,0.10) 0%, transparent 62%)",
+                  }}
+                  aria-hidden
+                />
+
+                <article
+                  className={[
+                    "relative flex flex-col",
+                    isFeature ? "md:min-h-0 md:flex-1" : "",
+                  ].filter(Boolean).join(" ")}
+                  aria-labelledby={`service-${s.id}`}
+                >
+                  <div className="mb-5 flex items-start justify-between gap-2">
                   <span
                     className={`font-metric text-5xl font-extrabold tabular-nums transition-colors ${s.numberCls}`}
                   >
@@ -145,9 +192,11 @@ export function SectionServices() {
                     </li>
                   ))}
                 </ul>
-              </article>
-            </AnimateIn>
-          ))}
+                </article>
+                </TiltCard>
+              </AnimateIn>
+            );
+          })}
         </div>
       </div>
     </section>

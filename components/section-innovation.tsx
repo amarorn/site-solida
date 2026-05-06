@@ -94,7 +94,7 @@ export function SectionInnovation() {
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {tools.map((tool, i) => (
             <AnimateIn key={tool.name} delay={i * 70}>
-              <div className="group h-full rounded-xl border border-border bg-surface/60 p-5 transition hover:border-amber-500/20 hover:bg-surface">
+              <div className="group h-full rounded-xl border border-border bg-surface/60 p-5 transition-all duration-300 hover:-translate-y-1 hover:border-amber-500/30 hover:bg-surface hover:shadow-card-hover">
                 <div className="mb-3 flex items-start justify-between gap-2">
                   <span
                     className={`rounded border px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest ${tool.tagCls}`}

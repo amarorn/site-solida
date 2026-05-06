@@ -1,10 +1,12 @@
+"use client";
+import { useEffect, useRef, useState } from "react";
 import { AnimateIn } from "@/components/animate-in";
+import { CountUp } from "@/components/count-up";
 
 const technologies = [
   {
     name: "Solar Fotovoltaico",
-    value: "148",
-    unit: "GW",
+    to: 148, unit: "GW", decimals: 0,
     pct: 100,
     barCls: "bg-amber-400",
     valueCls: "text-amber-400",
@@ -12,8 +14,7 @@ const technologies = [
   },
   {
     name: "Eólica",
-    value: "45",
-    unit: "GW",
+    to: 45, unit: "GW", decimals: 0,
     pct: 76,
     barCls: "bg-sky-400",
     valueCls: "text-sky-400",
@@ -21,8 +22,7 @@ const technologies = [
   },
   {
     name: "Armazenamento BESS",
-    value: "29",
-    unit: "GWh",
+    to: 29, unit: "GWh", decimals: 0,
     pct: 67,
     barCls: "bg-violet-400",
     valueCls: "text-violet-400",
@@ -30,8 +30,7 @@ const technologies = [
   },
   {
     name: "Termossolar CSP",
-    value: "9",
-    unit: "GW",
+    to: 9, unit: "GW", decimals: 0,
     pct: 44,
     barCls: "bg-orange-400",
     valueCls: "text-orange-400",
@@ -39,8 +38,7 @@ const technologies = [
   },
   {
     name: "Biomassa",
-    value: "0,5",
-    unit: "GW",
+    to: 0.5, unit: "GW", decimals: 1,
     pct: 10,
     barCls: "bg-emerald-400",
     valueCls: "text-emerald-400",
@@ -57,6 +55,25 @@ const emergingMarkets = [
 ];
 
 export function SectionTech() {
+  const [barsVisible, setBarsVisible] = useState(false);
+  const barsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = barsRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setBarsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.15 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section
       id="tecnologias"
@@ -82,55 +99,67 @@ export function SectionTech() {
           </div>
         </AnimateIn>
 
-        {/* Technology bars */}
-        <div className="space-y-4">
+        {/* Technology bars — animate on scroll */}
+        <div ref={barsRef} className="space-y-4">
           {technologies.map((tech, i) => (
-            <AnimateIn key={tech.name} delay={i * 80}>
-              <div className="grid grid-cols-[1fr,auto] items-center gap-4 rounded-xl border border-border bg-surface/50 p-4 sm:grid-cols-[180px,1fr,130px] sm:gap-6 sm:p-5">
-
-                {/* Name */}
-                <div className="sm:text-right">
-                  <p className="text-sm font-semibold text-slate-200">
-                    {tech.name}
-                  </p>
-                  <p className="mt-0.5 text-xs text-slate-500">{tech.sub}</p>
-                </div>
-
-                {/* Bar — hidden on mobile, shown sm+ */}
-                <div className="relative hidden h-8 overflow-hidden rounded-md bg-slate-900/80 sm:block">
-                  <div
-                    className={`absolute inset-y-0 left-0 rounded-md ${tech.barCls} opacity-15`}
-                    style={{ width: `${tech.pct}%` }}
-                    aria-hidden
-                  />
-                  <div
-                    className={`absolute inset-y-0 left-0 rounded-md ${tech.barCls} opacity-70`}
-                    style={{ width: `${Math.max(tech.pct * 0.12, 1)}%` }}
-                    aria-hidden
-                  />
-                </div>
-
-                {/* Value */}
-                <div className="text-right">
-                  <span
-                    className={`font-metric text-3xl font-bold tabular-nums sm:text-4xl ${tech.valueCls}`}
-                  >
-                    {tech.value}
-                  </span>
-                  <span
-                    className={`ml-1 font-metric text-base font-semibold ${tech.valueCls} opacity-60`}
-                  >
-                    {tech.unit}
-                  </span>
-                </div>
-
+            <div
+              key={tech.name}
+              className="grid grid-cols-[1fr,auto] items-center gap-4 rounded-xl border border-border bg-surface/50 p-4 sm:grid-cols-[180px,1fr,130px] sm:gap-6 sm:p-5"
+            >
+              {/* Name */}
+              <div className="sm:text-right">
+                <p className="text-sm font-semibold text-slate-200">{tech.name}</p>
+                <p className="mt-0.5 text-xs text-slate-500">{tech.sub}</p>
               </div>
-            </AnimateIn>
+
+              {/* Animated bar */}
+              <div className="relative hidden h-8 overflow-hidden rounded-md bg-slate-900/80 sm:block">
+                {/* Background glow layer */}
+                <div
+                  className={`absolute inset-y-0 left-0 rounded-md ${tech.barCls} opacity-12 transition-all`}
+                  style={{
+                    width: barsVisible ? `${tech.pct}%` : "0%",
+                    transitionProperty: "width",
+                    transitionDuration: "1400ms",
+                    transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
+                    transitionDelay: `${i * 140}ms`,
+                  }}
+                  aria-hidden
+                />
+                {/* Bright leading edge */}
+                <div
+                  className={`absolute inset-y-0 left-0 rounded-md ${tech.barCls} opacity-75`}
+                  style={{
+                    width: barsVisible ? `${Math.max(tech.pct * 0.1, 1)}%` : "0%",
+                    transitionProperty: "width",
+                    transitionDuration: "1400ms",
+                    transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
+                    transitionDelay: `${i * 140}ms`,
+                  }}
+                  aria-hidden
+                />
+              </div>
+
+              {/* Animated value */}
+              <div className="text-right">
+                <span className={`font-metric text-3xl font-bold tabular-nums sm:text-4xl ${tech.valueCls}`}>
+                  <CountUp
+                    to={tech.to}
+                    decimals={tech.decimals}
+                    duration={1400}
+                    delay={barsVisible ? i * 140 : 99999}
+                  />
+                </span>
+                <span className={`ml-1 font-metric text-base font-semibold ${tech.valueCls} opacity-60`}>
+                  {tech.unit}
+                </span>
+              </div>
+            </div>
           ))}
         </div>
 
         {/* Emerging markets */}
-        <AnimateIn delay={450}>
+        <AnimateIn delay={500}>
           <div className="mt-10 rounded-xl border border-border bg-surface/40 p-6">
             <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.18em] text-amber-400/70">
               Mercados & frentes emergentes (2024–2025)

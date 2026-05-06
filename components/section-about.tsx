@@ -14,8 +14,8 @@ const differentials = [
     body: "Poucos concorrentes oferecem ambos com o mesmo nível técnico. Cobrimos da viabilidade ao comissionamento, e as due diligences mais exigentes da Europa.",
   },
   {
-    title: "Bureau Veritas: escala global",
-    body: "Desde outubro de 2025, integrados ao Grupo Bureau Veritas. Acesso à infraestrutura de um dos maiores grupos mundiais de inspeção e certificação, em 140 países.",
+    title: "Brasil",
+    body: "Operações no Brasil com contato comercial e referência em São Paulo.",
   },
 ];
 
@@ -45,7 +45,7 @@ export function SectionAbout() {
               </div>
 
               <p className="text-lg leading-relaxed text-muted">
-                Fundada em 2007 em Madrid por{" "}
+                Fundada em 2007 por{" "}
                 <strong className="font-semibold text-slate-200">
                   Fernando Rueda
                 </strong>{" "}
@@ -58,14 +58,6 @@ export function SectionAbout() {
 
               <p className="leading-relaxed text-muted">
                 Nossa identidade é a independência absoluta: não comercializamos equipamentos, não temos conflitos de interesse. Somos exclusivamente engenharia e assessoria técnica — 100% do negócio, 100% do tempo, desde o primeiro dia.
-              </p>
-
-              <p className="leading-relaxed text-muted">
-                Em outubro de 2025, firmamos acordo de integração ao{" "}
-                <strong className="font-semibold text-slate-200">
-                  Grupo Bureau Veritas
-                </strong>
-                , gigante global de testes, inspeção e certificação presente em 140 países. Uma convergência natural entre excelência técnica e escala global.
               </p>
 
               {/* Mini metrics */}

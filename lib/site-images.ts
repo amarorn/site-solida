@@ -6,6 +6,25 @@ export const heroImage = {
   alt: "Campo de painéis solares em operação, representando engenharia em energia fotovoltaica em grande escala.",
 } as const;
 
+export const heroCarouselImages = [
+  {
+    src: `https://images.unsplash.com/photo-1509391366360-2e959784a276?${q}&w=2400`,
+    alt: "Campo de painéis solares em operação — engenharia fotovoltaica de grande escala.",
+  },
+  {
+    src: `https://images.unsplash.com/photo-1466611653911-95081537e5b7?${q}&w=2400`,
+    alt: "Parque eólico ao amanhecer — geração eólica em escala industrial.",
+  },
+  {
+    src: `https://images.unsplash.com/photo-1532601224476-15c79f2f7a51?${q}&w=2400`,
+    alt: "Aerogeradores em terreno aberto — projetos eólicos da Sólida Energías Renovables.",
+  },
+  {
+    src: `https://images.unsplash.com/photo-1621905251918-48416bd8575a?${q}&w=2400`,
+    alt: "Subestação elétrica de alta tensão — gestão de construção e comissionamento.",
+  },
+] as const;
+
 export const projectCardImages = {
   solarLarge: {
     src: `https://images.unsplash.com/photo-1509391366360-2e959784a276?${q}&w=1200`,
@@ -27,7 +46,7 @@ export const projectCardImages = {
 
 export const phaseStripImages = {
   desenvolvimento: {
-    src: `https://images.unsplash.com/photo-1497435334941-0c899ee9a087?${q}&w=900`,
+    src: `https://images.unsplash.com/photo-1532601224476-15c79f2f7a51?${q}&w=900`,
     alt: "Parque eólico visto de perspectiva ampla, aludindo à fase de desenvolvimento e viabilização do projeto.",
   },
   construcao: {
